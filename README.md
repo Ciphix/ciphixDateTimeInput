@@ -1,11 +1,14 @@
 ## CiphixDateTimeInput
-[HTML Date(Time) elements for Date(Time) input in Mendix]
+This pluggable widget provides native HTML5 date/time inputs.
 
 ## Features
-[feature highlights]
+- Native HTML5 date, time and datetime-local inputs
+- Allows a separate date and time input to be connected to one DateTime Attribute, and work together
+- Mendix control/text rendering
+- Formatting and calendar/time pickers are controlled by browser
 
 ## Usage
-[step by step instructions]
+- Simply use instead of the default Mendix widget for DateTimeAttributes
 
 ## Demo project
 [link to sandbox]
