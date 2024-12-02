@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<widget
+    id="ciphix.ciphixdatetimeinput.CiphixDateTimeInput"
+    pluginWidget="true"
+    needsEntityContext="true"
+    offlineCapable="true"
+    supportedPlatform="Web"
+    xmlns="http://www.mendix.com/widget/1.0/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd"
+>
+    <name>Ciphix Date Time Input</name>
+    <description>HTML Date(Time) elements for Date(Time) input in Mendix</description>
+    <icon/>
+    <properties>
+        <propertyGroup caption="General">
+            <propertyGroup caption="Data">
+                <property key="inputType" type="enumeration" defaultValue="date">
+                    <caption>Input type</caption>
+                    <description />
+                    <enumerationValues>
+                        <enumerationValue key="date">Date</enumerationValue>
+                        <enumerationValue key="time">Time</enumerationValue>
+                        <enumerationValue key="datetime">Date and time</enumerationValue>
+                    </enumerationValues>
+                </property>
+                <property key="dateTimeAttribute" type="attribute">
+                    <caption>Attribute</caption>
+                    <description />
+                    <attributeTypes>
+                        <attributeType name="DateTime" />
+                    </attributeTypes>
+                </property>
+            </propertyGroup>
+
+            <propertyGroup caption="Label">
+                <systemProperty key="Label" />
+            </propertyGroup>
+
+            <propertyGroup caption="Visibility">
+                <systemProperty key="Visibility" />
+            </propertyGroup>
+
+            <propertyGroup caption="Editability">
+                <systemProperty key="Editability" />
+                <property key="readOnlyStle" type="enumeration" defaultValue="text">
+                    <caption>Read-only style</caption>
+                    <description />
+                    <enumerationValues>
+                        <enumerationValue key="control">Control</enumerationValue>
+                        <enumerationValue key="text">Content only</enumerationValue>
+                    </enumerationValues>
+                </property>
+            </propertyGroup>
+        </propertyGroup>
+        <propertyGroup caption="Events">
+            <propertyGroup caption="Events">
+                <property key="onChangeAction" type="action" required="false">
+                    <caption>On change action</caption>
+                    <description />
+                </property>
+
+                <property key="onFocusAction" type="action" required="false">
+                    <caption>On enter action</caption>
+                    <description />
+                </property>
+
+                <property key="onBlurAction" type="action" required="false">
+                    <caption>On leave action</caption>
+                    <description />
+                </property>
+            </propertyGroup>
+        </propertyGroup>
+    </properties>
+</widget>
