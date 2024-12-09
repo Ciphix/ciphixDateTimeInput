@@ -124,16 +124,37 @@ export function getProperties(
 //         });
 //     }
 //     */
-//     return errors;
+//     return errors; 
 // }
 
-// export function getPreview(values: CiphixDateTimeInputPreviewProps, isDarkMode: boolean, version: number[]): PreviewProps {
-//     // Customize your pluggable widget appearance for Studio Pro.
-//     return {
-//         type: "Container",
-//         children: []
-//     }
-// }
+export function getPreview(
+    values: CiphixDateTimeInputPreviewProps,
+    isDarkMode: boolean //,version: number[]
+): PreviewProps {
+    // Customize your pluggable widget appearance for Studio Pro.
+    
+    return {
+        type: "Container",
+        borders: true,
+        borderRadius: 2,
+        backgroundColor: values.readOnly ? (isDarkMode ? "#646464" : "#c1c3c8") : isDarkMode ? "#313131" : "#ffffff",
+        children: [
+            {
+                type: "Container",
+                borders: false,
+                padding: 6,
+                children: [
+                    {
+                        type: "Text",
+                        fontColor: isDarkMode ? "#6DB1FE" : "#146ff4",
+                        content: "[" + values.dateTimeAttribute + "]",
+                        fontSize: 8,
+                    }
+                ]
+            }
+        ]
+    };
+}
 
 // export function getCustomCaption(values: CiphixDateTimeInputPreviewProps, platform: Platform): string {
 //     return "CiphixDateTimeInput";

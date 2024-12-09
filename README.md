@@ -14,7 +14,7 @@ This pluggable widget provides native HTML5 date/time inputs.
 [link to sandbox]
 
 ## Issues, suggestions and feature requests
-[link to GitHub issues]
+[link to GitHub issues](https://github.com/Ciphix/ciphixDateTimeInput/issues)
 
 ## Development and contribution
 
