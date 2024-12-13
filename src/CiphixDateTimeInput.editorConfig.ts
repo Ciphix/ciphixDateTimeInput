@@ -124,15 +124,15 @@ export function getProperties(
 //         });
 //     }
 //     */
-//     return errors; 
+//     return errors;
 // }
 
 export function getPreview(
     values: CiphixDateTimeInputPreviewProps,
-    isDarkMode: boolean //,version: number[]
+    isDarkMode: boolean // ,version: number[]
 ): PreviewProps {
     // Customize your pluggable widget appearance for Studio Pro.
-    
+
     return {
         type: "Container",
         borders: true,
@@ -148,7 +148,7 @@ export function getPreview(
                         type: "Text",
                         fontColor: isDarkMode ? "#6DB1FE" : "#146ff4",
                         content: "[" + values.dateTimeAttribute + "]",
-                        fontSize: 8,
+                        fontSize: 8
                     }
                 ]
             }
