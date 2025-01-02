@@ -15,6 +15,10 @@ export interface CiphixDateTimeInputContainerProps {
     id: string;
     inputType: InputTypeEnum;
     dateTimeAttribute: EditableValue<Date>;
+    useMinValue: boolean;
+    minValue?: EditableValue<Date>;
+    useMaxValue: boolean;
+    maxValue?: EditableValue<Date>;
     readOnlyStle: ReadOnlyStleEnum;
     onChangeAction?: ActionValue;
     onFocusAction?: ActionValue;
@@ -26,6 +30,10 @@ export interface CiphixDateTimeInputPreviewProps {
     renderMode?: "design" | "xray" | "structure";
     inputType: InputTypeEnum;
     dateTimeAttribute: string;
+    useMinValue: boolean;
+    minValue: string;
+    useMaxValue: boolean;
+    maxValue: string;
     readOnlyStle: ReadOnlyStleEnum;
     onChangeAction: {} | null;
     onFocusAction: {} | null;

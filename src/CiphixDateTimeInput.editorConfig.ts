@@ -1,8 +1,7 @@
 import { CiphixDateTimeInputPreviewProps } from "../typings/CiphixDateTimeInputProps";
+import { Properties, hidePropertyIn, hidePropertiesIn } from "@mendix/pluggable-widgets-tools";
 
 export type Platform = "web" | "desktop";
-
-export type Properties = PropertyGroup[];
 
 type PropertyGroup = {
     caption: string;
@@ -99,33 +98,44 @@ export type PreviewProps =
     | SelectableProps
     | DatasourceProps;
 
-export function getProperties(
-    _values: CiphixDateTimeInputPreviewProps,
-    defaultProperties: Properties /* , target: Platform*/
-): Properties {
+export function getProperties(_values: CiphixDateTimeInputPreviewProps, defaultProperties: Properties): Properties {
     // Do the values manipulation here to control the visibility of properties in Studio and Studio Pro conditionally.
-    /* Example
-    if (values.myProperty === "custom") {
-        delete defaultProperties.properties.myOtherProperty;
+
+    if (_values.inputType === "time") {
+        hidePropertiesIn(defaultProperties, _values, ["useMinValue", "useMaxValue", "minValue", "maxValue"]);
     }
-    */
+
+    if (_values.useMinValue !== true) {
+        hidePropertyIn(defaultProperties, _values, "minValue");
+    }
+
+    if (_values.useMaxValue !== true) {
+        hidePropertyIn(defaultProperties, _values, "maxValue");
+    }
+
     return defaultProperties;
 }
 
-// export function check(_values: CiphixDateTimeInputPreviewProps): Problem[] {
-//     const errors: Problem[] = [];
-//     // Add errors to the above array to throw errors in Studio and Studio Pro.
-//     /* Example
-//     if (values.myProperty !== "custom") {
-//         errors.push({
-//             property: `myProperty`,
-//             message: `The value of 'myProperty' is different of 'custom'.`,
-//             url: "https://github.com/myrepo/mywidget"
-//         });
-//     }
-//     */
-//     return errors;
-// }
+export function check(_values: CiphixDateTimeInputPreviewProps): Problem[] {
+    const errors: Problem[] = [];
+    // Add errors to the above array to throw errors in Studio and Studio Pro.
+
+    if (_values.useMinValue && !_values.minValue) {
+        errors.push({
+            property: `minValue`,
+            message: `Define the attribute that contains the 'Minimum value'.`
+        });
+    }
+
+    if (_values.useMaxValue && !_values.maxValue) {
+        errors.push({
+            property: `maxValue`,
+            message: `Define the attribute that contains the 'Maximum value'.`
+        });
+    }
+
+    return errors;
+}
 
 export function getPreview(
     values: CiphixDateTimeInputPreviewProps,

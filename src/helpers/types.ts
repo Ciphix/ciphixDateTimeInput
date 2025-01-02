@@ -7,6 +7,8 @@ export interface CiphixDateTimeInputSettings {
     className?: string;
     displayType?: displayTypeEnum;
     disabled?: boolean;
+    minValue?: Date;
+    maxValue?: Date;
 }
 
 export interface dateTimePatterns {

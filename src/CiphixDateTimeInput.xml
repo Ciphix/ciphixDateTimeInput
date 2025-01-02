@@ -33,6 +33,31 @@
                 </property>
             </propertyGroup>
 
+             <propertyGroup caption="Limits">
+                <property key="useMinValue" type="boolean" defaultValue="false">
+                    <caption>Set a min value</caption>
+                    <description />
+                </property>
+                <property key="minValue" type="attribute" required="false">
+                    <caption>Minimum value</caption>
+                    <description />
+                    <attributeTypes>
+                        <attributeType name="DateTime" />
+                    </attributeTypes>
+                </property>
+                 <property key="useMaxValue" type="boolean" defaultValue="false">
+                    <caption>Set a max value</caption>
+                    <description />
+                </property>
+                <property key="maxValue" type="attribute" required="false">
+                    <caption>Maximum value</caption>
+                    <description />
+                    <attributeTypes>
+                        <attributeType name="DateTime" />
+                    </attributeTypes>
+                </property>
+            </propertyGroup>
+
             <propertyGroup caption="Label">
                 <systemProperty key="Label" />
             </propertyGroup>

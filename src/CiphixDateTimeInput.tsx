@@ -9,7 +9,8 @@ import useSettings from "./hooks/useSettings";
 import "./ui/CiphixDateTimeInput.css";
 
 export function CiphixDateTimeInput(props: CiphixDateTimeInputContainerProps): ReactElement {
-    const { dateTimeDisplayValue, inputType, className, displayType, disabled } = useSettings(props);
+    const { dateTimeDisplayValue, inputType, className, displayType, disabled, minValue, maxValue } =
+        useSettings(props);
 
     return (
         <Fragment>
@@ -25,6 +26,8 @@ export function CiphixDateTimeInput(props: CiphixDateTimeInputContainerProps): R
                 onBlurAction={props.onBlurAction}
                 onChangeAction={props.onChangeAction}
                 onFocusAction={props.onFocusAction}
+                minValue={minValue}
+                maxValue={maxValue}
             />
             <Alert>{props.dateTimeAttribute?.validation}</Alert>
         </Fragment>

@@ -32,6 +32,8 @@ export default function useSettings(props: CiphixDateTimeInputContainerProps): C
     const [displayType, setDisplayType] = useState<displayTypeEnum>();
     const [dateTimeDisplayValue, setDateTimeDisplayValue] = useState<string | undefined>();
     const [disabled, setDisabled] = useState<boolean>();
+    const [minValue, setMinValue] = useState<Date | undefined>();
+    const [maxValue, setMaxValue] = useState<Date | undefined>();
 
     const patterns: dateTimePatterns = getDateTimePatterns();
     const inputType: inputTypeEnum =
@@ -45,6 +47,24 @@ export default function useSettings(props: CiphixDateTimeInputContainerProps): C
             setDateTimeDisplayValue(undefined);
         }
     }, [props.dateTimeAttribute, props.dateTimeAttribute?.value, inputType, patterns]);
+
+    // Set the min value
+    useEffect(() => {
+        if (props.useMinValue && props.minValue?.value) {
+            setMinValue(props.minValue.value);
+        } else {
+            setMinValue(undefined);
+        }
+    }, [props.useMinValue, props.minValue, props.minValue?.value]);
+
+    // Set the max value
+    useEffect(() => {
+        if (props.useMaxValue && props.maxValue?.value) {
+            setMaxValue(props.maxValue.value);
+        } else {
+            setMaxValue(undefined);
+        }
+    }, [props.useMaxValue, props.maxValue, props.maxValue?.value]);
 
     // Check if the item is editable and set className and displayType accordingly
     useEffect(() => {
@@ -68,6 +88,8 @@ export default function useSettings(props: CiphixDateTimeInputContainerProps): C
         inputType,
         className,
         displayType,
-        disabled
+        disabled,
+        minValue,
+        maxValue
     };
 }

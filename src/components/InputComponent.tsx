@@ -13,6 +13,8 @@ export interface InputComponentProps {
     onChangeAction?: ActionValue;
     onFocusAction?: ActionValue;
     onBlurAction?: ActionValue;
+    minValue?: Date;
+    maxValue?: Date;
 }
 
 const executeAction = (action: ActionValue | undefined): void => {
@@ -28,7 +30,7 @@ const getPaddedString = (input: number): string => {
 // Get the ISO date/time/datetime string from the Mendix DateTime for the HTML input
 const getDateTimeValue = (input: Date, type: inputTypeEnum | undefined): string | undefined => {
     const dateString: string =
-        input.getFullYear() + "-" + (input.getMonth() + 1) + "-" + getPaddedString(input.getDate());
+        input.getFullYear() + "-" + getPaddedString(input.getMonth() + 1) + "-" + getPaddedString(input.getDate());
     const timeString: string = getPaddedString(input.getHours()) + ":" + getPaddedString(input.getMinutes());
 
     return type === "date" ? dateString : type === "time" ? timeString : dateString + "T" + timeString;
@@ -76,6 +78,8 @@ const getProcessedDate = (
 export const InputComponent: FunctionComponent<InputComponentProps> = (props: InputComponentProps) => {
     const [dateTimeValue, setDateTimeValue] = useState<string | undefined>();
     const [isEditing, setIsEditing] = useState<boolean>(false);
+    const [minValue, setMinValue] = useState<string | undefined>();
+    const [maxValue, setMaxValue] = useState<string | undefined>();
 
     // Format the dateTimeValue
     useEffect(() => {
@@ -85,6 +89,24 @@ export const InputComponent: FunctionComponent<InputComponentProps> = (props: In
             setDateTimeValue(undefined);
         }
     }, [props.dateTimeAttribute, props.dateTimeAttribute?.value, props.inputType, isEditing]);
+
+    // Format the min value
+    useEffect(() => {
+        if (props.minValue) {
+            setMinValue(getDateTimeValue(props.minValue, props.inputType));
+        } else {
+            setMinValue(undefined);
+        }
+    }, [props.minValue, props.inputType]);
+
+    // Format the max value
+    useEffect(() => {
+        if (props.maxValue) {
+            setMaxValue(getDateTimeValue(props.maxValue, props.inputType));
+        } else {
+            setMaxValue(undefined);
+        }
+    }, [props.maxValue, props.inputType]);
 
     const handleBlur = (e: ChangeEvent<HTMLInputElement>): void => {
         if (props.inputType === undefined) {
@@ -120,6 +142,8 @@ export const InputComponent: FunctionComponent<InputComponentProps> = (props: In
             disabled={props.disabled}
             onBlur={handleBlur}
             onFocus={handleFocus}
+            min={minValue}
+            max={maxValue}
         ></input>
     ) : null;
 };
