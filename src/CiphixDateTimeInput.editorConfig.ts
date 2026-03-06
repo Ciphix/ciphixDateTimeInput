@@ -1,5 +1,5 @@
 import { CiphixDateTimeInputPreviewProps } from "../typings/CiphixDateTimeInputProps";
-import { Properties, hidePropertyIn, hidePropertiesIn } from "@mendix/pluggable-widgets-tools";
+import { Properties, hidePropertiesIn } from "@mendix/pluggable-widgets-tools";
 
 export type Platform = "web" | "desktop";
 
@@ -102,15 +102,30 @@ export function getProperties(_values: CiphixDateTimeInputPreviewProps, defaultP
     // Do the values manipulation here to control the visibility of properties in Studio and Studio Pro conditionally.
 
     if (_values.inputType === "time") {
-        hidePropertiesIn(defaultProperties, _values, ["useMinValue", "useMaxValue", "minValue", "maxValue"]);
+        hidePropertiesIn(defaultProperties, _values, [
+            "useMinValue",
+            "useMaxValue",
+            "minValue",
+            "maxValue",
+            "minValueText",
+            "maxValueText"
+        ]);
     }
 
     if (_values.useMinValue !== true) {
-        hidePropertyIn(defaultProperties, _values, "minValue");
+        hidePropertiesIn(defaultProperties, _values, ["minValueSource", "minValue", "minValueText"]);
+    } else if (_values.minValueSource === "constant") {
+        hidePropertiesIn(defaultProperties, _values, ["minValue"]);
+    } else {
+        hidePropertiesIn(defaultProperties, _values, ["minValueText"]);
     }
 
     if (_values.useMaxValue !== true) {
-        hidePropertyIn(defaultProperties, _values, "maxValue");
+        hidePropertiesIn(defaultProperties, _values, ["maxValueSource", "maxValue", "maxValueText"]);
+    } else if (_values.maxValueSource === "constant") {
+        hidePropertiesIn(defaultProperties, _values, ["maxValue"]);
+    } else {
+        hidePropertiesIn(defaultProperties, _values, ["maxValueText"]);
     }
 
     return defaultProperties;
@@ -120,18 +135,32 @@ export function check(_values: CiphixDateTimeInputPreviewProps): Problem[] {
     const errors: Problem[] = [];
     // Add errors to the above array to throw errors in Studio and Studio Pro.
 
-    if (_values.useMinValue && !_values.minValue) {
-        errors.push({
-            property: `minValue`,
-            message: `Define the attribute that contains the 'Minimum value'.`
-        });
+    if (_values.useMinValue) {
+        if (_values.minValueSource === "attribute" && !_values.minValue) {
+            errors.push({
+                property: `minValue`,
+                message: `Define the attribute that contains the 'Minimum value'.`
+            });
+        } else if (_values.minValueSource === "constant" && !_values.minValueText) {
+            errors.push({
+                property: `minValueText`,
+                message: `Define the 'Minimum value'. Use the format "yyyy-MM-dd"`
+            });
+        }
     }
 
-    if (_values.useMaxValue && !_values.maxValue) {
-        errors.push({
-            property: `maxValue`,
-            message: `Define the attribute that contains the 'Maximum value'.`
-        });
+    if (_values.useMaxValue) {
+        if (_values.maxValueSource === "attribute" && !_values.maxValue) {
+            errors.push({
+                property: `maxValue`,
+                message: `Define the attribute that contains the 'Maximum value'.`
+            });
+        } else if (_values.maxValueSource === "constant" && !_values.maxValueText) {
+            errors.push({
+                property: `maxValueText`,
+                message: `Define the 'Maximum value'. Use the format "yyyy-MM-dd"`
+            });
+        }
     }
 
     return errors;

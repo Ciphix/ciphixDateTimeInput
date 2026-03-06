@@ -18,6 +18,20 @@ const getDateTimePatterns = (): dateTimePatterns => {
     };
 };
 
+// Parse a "yyyy-MM-dd" string into a local-time Date, returns null if invalid
+const parseYMD = (value: string): Date | null => {
+    const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+    if (!match) {
+        return null;
+    }
+    const [, y, m, d] = match.map(Number);
+    const date = new Date(y, m - 1, d);
+    if (date.getFullYear() !== y || date.getMonth() !== m - 1 || date.getDate() !== d) {
+        return null;
+    }
+    return date;
+};
+
 // Format the Mendix DateTime for textual display
 const getDateTimeDisplayValue = (input: Date, type: inputTypeEnum, patterns: dateTimePatterns): string | undefined => {
     return type === "date"
@@ -50,21 +64,33 @@ export default function useSettings(props: CiphixDateTimeInputContainerProps): C
 
     // Set the min value
     useEffect(() => {
-        if (props.useMinValue && props.minValue?.value) {
-            setMinValue(props.minValue.value);
+        if (props.useMinValue) {
+            if (props.minValueSource === "constant") {
+                setMinValue(parseYMD(props.minValueText) ?? undefined);
+            } else if (props.minValue?.value) {
+                setMinValue(props.minValue.value);
+            } else {
+                setMinValue(undefined);
+            }
         } else {
             setMinValue(undefined);
         }
-    }, [props.useMinValue, props.minValue, props.minValue?.value]);
+    }, [props.useMinValue, props.minValueSource, props.minValueText, props.minValue, props.minValue?.value]);
 
     // Set the max value
     useEffect(() => {
-        if (props.useMaxValue && props.maxValue?.value) {
-            setMaxValue(props.maxValue.value);
+        if (props.useMaxValue) {
+            if (props.maxValueSource === "constant") {
+                setMaxValue(parseYMD(props.maxValueText) ?? undefined);
+            } else if (props.maxValue?.value) {
+                setMaxValue(props.maxValue.value);
+            } else {
+                setMaxValue(undefined);
+            }
         } else {
             setMaxValue(undefined);
         }
-    }, [props.useMaxValue, props.maxValue, props.maxValue?.value]);
+    }, [props.useMaxValue, props.maxValueSource, props.maxValueText, props.maxValue, props.maxValue?.value]);
 
     // Check if the item is editable and set className and displayType accordingly
     useEffect(() => {

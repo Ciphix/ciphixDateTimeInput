@@ -38,6 +38,14 @@
                     <caption>Set a min value</caption>
                     <description />
                 </property>
+                <property key="minValueSource" type="enumeration" defaultValue="attribute">
+                    <caption>Minimum value source</caption>
+                    <description />
+                    <enumerationValues>
+                        <enumerationValue key="attribute">Attribute</enumerationValue>
+                        <enumerationValue key="constant">Constant</enumerationValue>
+                    </enumerationValues>
+                </property>
                 <property key="minValue" type="attribute" required="false">
                     <caption>Minimum value</caption>
                     <description />
@@ -45,9 +53,25 @@
                         <attributeType name="DateTime" />
                     </attributeTypes>
                 </property>
+                <property key="minValueText" type="string" required="false">
+                    <caption>Minimum value </caption>
+                    <description>Use the format "yyyy-MM-dd"</description>
+                </property>
                  <property key="useMaxValue" type="boolean" defaultValue="false">
                     <caption>Set a max value</caption>
                     <description />
+                </property>
+                <property key="maxValueSource" type="enumeration" defaultValue="attribute">
+                    <caption>Maximum value source</caption>
+                    <description />
+                    <enumerationValues>
+                        <enumerationValue key="attribute">Attribute</enumerationValue>
+                        <enumerationValue key="constant">Constant</enumerationValue>
+                    </enumerationValues>
+                </property>
+                <property key="maxValueText" type="string" required="false">
+                    <caption>Maximum value </caption>
+                    <description>Use the format "yyyy-MM-dd"</description>
                 </property>
                 <property key="maxValue" type="attribute" required="false">
                     <caption>Maximum value</caption>
